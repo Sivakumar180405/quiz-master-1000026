@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Quiz Score Chart</h2>
+    {% if graph %}
+        <h3>Scores of All Users</h3>
+        <img src="data:image/png;base64,{{ graph }}" alt="Quiz Score Chart">
+    {% endif %}
+    <div class="buttons">
+        <a href="{{ url_for('main.all_results') }}">
+            <button>View All Scores</button>
+        </a>
+    </div>
+
+{% endblock %}

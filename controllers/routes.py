@@ -2,6 +2,9 @@ from flask import Blueprint, render_template, redirect, url_for, request
 from flask_login import login_required, login_user, logout_user, current_user
 from models.models import User, Subject, Chapter, Quiz, Question, Score, db as database
 from datetime import datetime
+import matplotlib.pyplot as plt
+import io
+import base64
 
 main = Blueprint('main', __name__)
 
@@ -171,9 +174,36 @@ def all_results():
         scores = scores.filter((User.full_name.ilike(f"%{search}%")))
 
     results = scores.all() 
-    # print(results)
 
-    return render_template('all_results.html', scores=results, search=search)
+    return render_template('all_results.html', scores=results)
+    
+@main.route('/admin/score_chart')
+@login_required
+def score_chart():
+    if not current_user.is_admin:
+        return redirect(url_for('main.admin_dashboard'))
+
+    scores = database.session.query(User.full_name, Score.score, Quiz.name, Chapter.name).join(User).join(Quiz).join(Chapter).all()
+
+    if not scores:
+        return "No scores available"
+
+    usernames = [f"{score[0]} ({score[3]}:{score[2]})" for score in scores] 
+    scores_data = [score[1] for score in scores]  
+
+    plt.figure(figsize=(10, 6))
+    plt.bar(usernames, scores_data, color='green')
+    plt.xlabel("Users and Quizzes")
+    plt.ylabel("Scores")
+    plt.title("All Quiz Scores")
+    plt.xticks(rotation=30, ha='right')
+
+    img = io.BytesIO()
+    plt.savefig(img, format='png', bbox_inches="tight")
+    img.seek(0)
+    graph = base64.b64encode(img.getvalue()).decode()
+
+    return render_template('score_chart.html', graph=graph)
 
 @main.route('/login', methods=['GET', 'POST'])
 def login():
@@ -222,12 +252,24 @@ def start_quiz(quiz_id):
 @main.route('/results')
 @login_required
 def results():
-    scores = Score.query.filter_by(user_id=current_user.id).all()
-    for score in scores:
-        quiz = Quiz.query.get(score.quiz_id)
-        score.quiz_name = quiz.name if quiz else "Unknown Quiz"
+    scores = Score.query.filter_by(user_id=current_user.id).join(Quiz).add_columns(Score.score, Quiz.name.label("quiz_name"), Score.timestamp).all()
 
-    return render_template('results.html', scores=scores)
+    quiz_names = [score.quiz_name for score in scores]
+    quiz_scores = [score.score for score in scores]
+
+    plt.figure(figsize=(8, 4))
+    plt.bar(quiz_names, quiz_scores, color='black')
+    plt.xlabel('Quiz Name')
+    plt.ylabel('Score')
+    plt.title('Your Quiz Scores')
+    plt.xticks(rotation=45)
+
+    img = io.BytesIO()
+    plt.savefig(img, format='png', bbox_inches="tight")
+    img.seek(0)
+    chart = base64.b64encode(img.getvalue()).decode()
+
+    return render_template('results.html', scores=scores, chart=chart)
 
 
 @main.route('/logout')

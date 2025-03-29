@@ -3,10 +3,12 @@
 <h2>All Student's Quiz Results</h2>
 
 <div class="search-bar">
-    <input type="text" name="query" placeholder="Search by name or email..." required form="usersearch"
+    <input type="text" name="query" placeholder="Search by name" required form="usersearch"
         value="{{ search }}">
     <button type="submit" form="usersearch">Search User</button>
 </div>
+<form action="{{ url_for('main.all_results') }}" method="GET" id="usersearch"></form>
+
 
 <table border="2">
     <tr>
@@ -24,7 +26,11 @@
     </tr>
     {% endfor %}
 </table>
-
+<div class="buttons">
+    <a href="{{ url_for('main.score_chart') }}">
+        <button>View Score Chart</button>
+    </a>
+</div>
 <a href="{{ url_for('main.admin_db') }}">
     <button>Dashboard</button>
 </a>
