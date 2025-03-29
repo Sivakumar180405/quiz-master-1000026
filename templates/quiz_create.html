@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Create Quiz</h2>
+<form method="POST">
+    <label>Quiz Name:</label>
+    <input type="text" name="quiz_name" required>
+    <label>Date of Quiz:</label>
+    <input type="date" name="date_of_quiz" required>
+    <label>Duration in HH:MM:</label>
+    <input type="text" name="duration" required>
+    <button type="submit">Create Quiz</button>
+</form>
+<a href="{{ url_for('main.admin_db') }}">Back</a>
+{% endblock %}

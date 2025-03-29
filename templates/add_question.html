@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Add Question to Quiz</h2>
+
+<form method="POST">
+    <label>Question:</label>
+    <textarea name="question_text" required></textarea>
+
+    <label>Option 1:</label>
+    <input type="text" name="option1" required>
+
+    <label>Option 2:</label>
+    <input type="text" name="option2" required>
+
+    <label>Option 3:</label>
+    <input type="text" name="option3" required>
+
+    <label>Option 4:</label>
+    <input type="text" name="option4" required>
+
+    <label>Correct Option (1-4):</label>
+    <select name="correct_option" required>
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+        <option value="3">Option 3</option>
+        <option value="4">Option 4</option>
+    </select>
+
+    <button type="submit" name="action" value="add_another">Add Another Question</button>
+    <button type="submit" name="action" value="quit">Save & Exit</button>
+</form>
+
+<a href="{{ url_for('main.admin_db') }}">Back</a>
+{% endblock %}

@@ -7,7 +7,7 @@
     <nav>
         <a href="{{ url_for('main.index') }}">Home</a>
         {% if current_user.is_authenticated %}
-        <a href="{{ url_for('main.user_dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('main.db') }}">Dashboard</a>
         <a href="{{ url_for('main.logout') }}">Logout</a>
         {% else %}
         <a href="{{ url_for('main.login') }}">Login</a>
@@ -15,7 +15,7 @@
         {% endif %}
 
         {% if current_user.is_authenticated and current_user.is_admin %}
-            <a href="{{ url_for('main.admin_dashboard') }}">Admin Management</a>
+            <a href="{{ url_for('main.admin_db') }}">Admin Management</a>
         {% endif %}
     </nav>
     <div class="container">
