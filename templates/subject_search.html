@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Search Results for "{{ query }}"</h2>
+
+{% if subjects %}
+<table border="1">
+    <tr>
+        <th>Subject Name</th>
+        <th>Actions</th>
+    </tr>
+    {% for subject in subjects %}
+    <tr>
+        <td>{{ subject.name }}</td>
+        <td>
+            <a href="{{ url_for('main.chapter_create', subject_id=subject.id) }}" method="GET"">
+                <button type="submit">Add Chapter</button>
+            </a>
+            <a href="{{ url_for('main.subject_delete', subject_id=subject.id) }}" method="POST" style="display:inline;">
+                <button type="submit" class="delete-btn" onclick="return window.alert('Deleting this subject and its chapters?')">Delete Subject</button>
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>No subjects found.</p>
+{% endif %}
+
+<a href="{{ url_for('main.admin_db') }}">
+    <button>Dashboard</button>
+</a>
+{% endblock %}

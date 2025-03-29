@@ -4,6 +4,13 @@
     <h2>Admin Dashboard</h2>
     
     <h3>Subjects & Quizzes</h3>
+    
+    <div class="search-box">
+        <input type="text" name="query" placeholder="Search for a subject..." form="subjectsearch">
+        <button type="submit" form="subjectsearch">Search Subjects</button>
+    </div>
+    <form action="{{ url_for('main.subject_search') }}" method="GET" id="subjectsearch"></form>
+
     <div class="buttons">
         <a href="{{ url_for('main.subject_create') }}">
             <button>Create Subject</button>
@@ -17,7 +24,15 @@
                 <a href="{{ url_for('main.chapter_create', subject_id=subject.id) }}" method="GET"">
                     <button type="submit">Add Chapter</button>
                 </a>
+                <a href="{{ url_for('main.subject_delete', subject_id=subject.id) }}" method="POST" style="display:inline;">
+                    <button type="submit" class="delete-btn" onclick="return window.alert('Are you sure you want to delete this sybject and its chapter?')">Delete Subject</button>
+                </a>
             </div>
+            <div class="search-box">
+                <input type="text" name="query" placeholder="Search for a chapter..." form="chaptersearch">
+                <button type="submit" form="chaptersearch">Search Chapters</button>
+            </div>
+            <form action="{{ url_for('main.chapter_search') }}" method="GET" id="chaptersearch"></form>
             {% for chapter in subject.chapters %}
             <div class="ccontainer">
                 <h4>Chapter: {{ chapter.name }}</h4>
@@ -30,6 +45,11 @@
                         <button type="submit" class="delete-btn" onclick="return window.alert('Are you sure you want to delete this chapter and its quizzes?')">Delete Chapter</button>
                     </a>
                 </div>
+                <div class="search-box">
+                    <input type="text" name="query" placeholder="Search for a quiz..." form="quizsearch">
+                    <button type="submit" form="quizsearch">Search Quizzes</button>
+                </div>
+                <form action="{{ url_for('main.quiz_search') }}" method="GET" id="quizsearch"></form>
                 {% for quiz in chapter.quizzes %}
                 <div class="qcontainer">
                     <h5>{{ quiz.name }} Quiz ({{ quiz.duration }} minutes)</h5>

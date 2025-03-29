@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Search Results for "{{ query }}"</h2>
+
+{% if chapters %}
+<table border="1">
+    <tr>
+        <th>Chapters Name</th>
+        <th>Actions</th>
+    </tr>
+    {% for chapter in chapters %}
+    <tr>
+        <td>{{ chapter.name }}</td>
+        <td>
+            <a href="{{ url_for('main.quiz_create', chapter_id=chapter.id) }}" method="GET">
+                <button type="submit">Add Quiz</button>
+            </a>
+            
+            <a href="{{ url_for('main.chapter_delete', chapter_id=chapter.id) }}" method="POST">
+                <button type="submit" class="delete-btn" onclick="return window.alert('Deleting this chapter and its quizzes?')">Delete Chapter</button>
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>No chapters found.</p>
+{% endif %}
+
+<a href="{{ url_for('main.admin_db') }}">
+    <button>Dashboard</button>
+</a>
+{% endblock %}

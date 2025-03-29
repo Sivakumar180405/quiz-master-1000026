@@ -15,9 +15,14 @@
                     Chapter: {{ chapter.name }}
                     <ul>
                         {% if chapter.quizzes %}
-                            {% for quiz in chapter.quizzes %}
+                        <div class="search-box">
+                            <input type="text" name="query" placeholder="Search for a quiz..." form="usersearch">
+                            <button type="submit" form="usersearch">Search</button>
+                        </div>
+                        <form action="{{ url_for('main.user_quiz_search') }}" method="GET" id="usersearch"></form>    
+                        {% for quiz in chapter.quizzes %}
                             <li>
-                                📝 {{ quiz.name }} Quiz ({{ quiz.duration }} minutes)
+                                {{ quiz.name }} Quiz ({{ quiz.duration }} minutes)
                                 <a href="{{ url_for('main.start_quiz', quiz_id=quiz.id) }}">Start Quiz</a>
                             </li>
                             {% endfor %}

@@ -69,6 +69,17 @@ def subject_delete(subject_id):
 
     return redirect(url_for('main.admin_db'))
 
+@main.route('/subject_search', methods=['GET'])
+@login_required
+def subject_search():
+    query = request.args.get('query', '').strip()
+    subjects = []
+
+    if query:
+        subjects = Subject.query.filter(Subject.name.ilike(f"%{query}%")).all()
+
+    return render_template('subject_search.html', subjects=subjects, query=query)
+
 @main.route('/admin/chapter_create/<int:subject_id>', methods=['GET', 'POST'])
 @login_required
 def chapter_create(subject_id):
@@ -95,6 +106,17 @@ def chapter_delete(chapter_id):
     database.session.commit()
 
     return redirect(url_for('main.admin_db'))
+
+@main.route('/chapter_search', methods=['GET'])
+@login_required
+def chapter_search():
+    query = request.args.get('query', '').strip()
+    chapters = []
+
+    if query:
+        chapters = Chapter.query.filter(Chapter.name.ilike(f"%{query}%")).all()
+
+    return render_template('chapter_search.html', chapters=chapters, query=query)
 
 @main.route('/admin/quiz_create/<int:chapter_id>', methods=['GET', 'POST'])
 @login_required
@@ -127,6 +149,18 @@ def quiz_delete(quiz_id):
     database.session.commit()
 
     return redirect(url_for('main.admin_db'))
+
+@main.route('/quiz_search', methods=['GET'])
+@login_required
+def quiz_search():
+    query = request.args.get('query', '').strip()
+    quizzes = []
+
+    if query:
+        quizzes = Quiz.query.filter(Quiz.name.ilike(f"%{query}%")).all()
+    print(current_user.is_admin)
+    
+    return render_template('quiz_search.html', quizzes=quizzes, query=query)
 
 @main.route('/admin/add_question/<int:quiz_id>', methods=['GET', 'POST'])
 @login_required
@@ -270,6 +304,18 @@ def results():
     chart = base64.b64encode(img.getvalue()).decode()
 
     return render_template('results.html', scores=scores, chart=chart)
+
+@main.route('/user_quiz_search', methods=['GET'])
+@login_required
+def user_quiz_search():
+    query = request.args.get('query', '').strip()
+    quizzes = []
+
+    if query:
+        quizzes = Quiz.query.filter(Quiz.name.ilike(f"%{query}%")).join(Chapter).all()
+    # print([quiz.chapter.name for quiz in quizzes])
+    
+    return render_template('user_quiz_search.html', quizzes=quizzes, query=query)
 
 
 @main.route('/logout')

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Search Results for "{{ query }}"</h2>
+
+{% if quizzes %}
+<table border="1">
+    <tr>
+        <th>Quiz Name</th>
+        <th>Chapter Name</th>
+        <th>Duration</th>
+        <th>Attempt</th>
+    </tr>
+    {% for quiz in quizzes %}
+    <tr>
+        <td>{{ quiz.name }}</td>
+        <td>{{ quiz.chapter.name }}</td>
+        <td>{{ quiz.duration }} minutes</td>
+        <td>
+            <a href="{{ url_for('main.start_quiz', quiz_id=quiz.id) }}">
+                <button>Start Quiz</button>
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>No quizzes found.</p>
+{% endif %}
+
+<a href="{{ url_for('main.db') }}">
+    <button>Dashboard</button>
+</a>
+{% endblock %}
