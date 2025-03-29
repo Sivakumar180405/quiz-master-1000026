@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>All Student's Quiz Results</h2>
+
+<div class="search-bar">
+    <input type="text" name="query" placeholder="Search by name or email..." required form="usersearch"
+        value="{{ search }}">
+    <button type="submit" form="usersearch">Search User</button>
+</div>
+
+<table border="2">
+    <tr>
+        <th>Student Name</th>
+        <th>Quiz Name</th>
+        <th>Score</th>
+        <th>Date</th>
+    </tr>
+    {% for score in scores %}
+    <tr>
+        <td>{{ score[2] }}</td>
+        <td>{{ score[4] }}</td>
+        <td>{{ score[0] }}</td>
+        <td>{{ score[1].strftime('%Y-%m-%d %H:%M:%S') }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<a href="{{ url_for('main.admin_db') }}">
+    <button>Dashboard</button>
+</a>
+
+{% endblock %}

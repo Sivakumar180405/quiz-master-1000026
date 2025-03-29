@@ -1,4 +1,43 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>User Dashboard Testing</h2>
+<h2>User Dashboard</h2>
+
+<h3>Available Subjects & Quizzes</h3>
+<ul>
+    {% for subject in subjects %}
+    <li>
+        <strong>Subject: {{ subject.name }}</strong>
+
+        <ul>
+            {% if subject.chapters %}
+                {% for chapter in subject.chapters %}
+                <li>
+                    Chapter: {{ chapter.name }}
+                    <ul>
+                        {% if chapter.quizzes %}
+                            {% for quiz in chapter.quizzes %}
+                            <li>
+                                📝 {{ quiz.name }} Quiz ({{ quiz.duration }} minutes)
+                                <a href="{{ url_for('main.start_quiz', quiz_id=quiz.id) }}">Start Quiz</a>
+                            </li>
+                            {% endfor %}
+                        {% else %}
+                            <li>No quizzes available yet.</li>
+                        {% endif %}
+                    </ul>
+                </li>
+                {% endfor %}
+            {% else %}
+                <li>No chapters available yet.</li>
+            {% endif %}
+        </ul>
+    </li>
+    {% else %}
+    <li>No subjects available yet.</li>
+    {% endfor %}
+</ul>
+<a href="{{ url_for('main.results') }}">
+    <button>View Scores</button>
+</a>
+
 {% endblock %}

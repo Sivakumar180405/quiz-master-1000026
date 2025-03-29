@@ -33,7 +33,8 @@ def register():
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
-        new_user = User(email=email, password=password)
+        name = request.form.get('name')
+        new_user = User(email=email, password=password, full_name=name)
         database.session.add(new_user)
         database.session.commit()
         return redirect(url_for('main.login'))
@@ -157,6 +158,23 @@ def add_question(quiz_id):
 
     return render_template('add_question.html', quiz_id=quiz_id)
 
+@main.route('/admin/all_results')
+@login_required
+def all_results():
+    if not current_user.is_admin:
+        return redirect(url_for('main.admin_db'))
+    
+    search = request.args.get('query', '').strip() 
+    scores = database.session.query(Score.score, Score.timestamp, User.full_name.label("user_name"),User.email.label("user_email"), Quiz.name.label("quiz_name")).join(User, Score.user_id == User.id).join(Quiz, Score.quiz_id == Quiz.id)
+
+    if search:
+        scores = scores.filter((User.full_name.ilike(f"%{search}%")))
+
+    results = scores.all() 
+    # print(results)
+
+    return render_template('all_results.html', scores=results, search=search)
+
 @main.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -175,6 +193,42 @@ def login():
 def db():
     subjects = Subject.query.all()
     return render_template('db.html', subjects=subjects)
+
+@main.route('/start_quiz/<int:quiz_id>', methods=['GET', 'POST'])
+@login_required
+def start_quiz(quiz_id):
+    quiz = Quiz.query.get_or_404(quiz_id)
+    questions = Question.query.filter_by(quiz_id=quiz_id).all()
+
+    if request.method == 'POST':
+        score = 0
+        for question in questions:
+            user_answer = request.form.get(f'question_{question.id}')
+            if user_answer and int(user_answer) == question.correct_option:
+                score += 4
+            else:
+                score -= 1
+
+        submission_date = datetime.now()
+
+        final_score = Score(quiz_id=quiz_id, user_id=current_user.id, score=score, timestamp=submission_date)
+        database.session.add(final_score)
+        database.session.commit()
+
+        return redirect(url_for('main.results'))
+
+    return render_template('start_quiz.html', quiz=quiz, questions=questions)
+
+@main.route('/results')
+@login_required
+def results():
+    scores = Score.query.filter_by(user_id=current_user.id).all()
+    for score in scores:
+        quiz = Quiz.query.get(score.quiz_id)
+        score.quiz_name = quiz.name if quiz else "Unknown Quiz"
+
+    return render_template('results.html', scores=scores)
+
 
 @main.route('/logout')
 @login_required

@@ -11,7 +11,7 @@
     </div>
     {% for subject in subjects %}
         <div class="scontainer">
-            <h3>{{ subject.name }}</h3>
+            <h3>Subject: {{ subject.name }}</h3>
             <p>{{ subject.description }}</p>
             <div class="buttons">
                 <a href="{{ url_for('main.chapter_create', subject_id=subject.id) }}" method="GET"">
@@ -20,7 +20,7 @@
             </div>
             {% for chapter in subject.chapters %}
             <div class="ccontainer">
-                <h4>📖 {{ chapter.name }}</h4>
+                <h4>Chapter: {{ chapter.name }}</h4>
                 <div class="buttons">
                     <a href="{{ url_for('main.quiz_create', chapter_id=chapter.id) }}" method="GET">
                         <button type="submit">Add Quiz</button>
@@ -51,5 +51,15 @@
         <h3>No subjects available yet.</h3>
     </div>
     {% endfor %}
+    <div class="buttons">
+        <a href="{{ url_for('main.all_results') }}">
+            <button>View All Results</button>
+        </a>
+    </div>
+    <div class="buttons">
+        <a href="{{ url_for('main.logout') }}">
+            <button class="delete-btn">Logout</button>
+        </a>
+    </div>
 </div>
 {% endblock %}

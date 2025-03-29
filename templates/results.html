@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Your Quiz Scores</h2>
+<table>
+    <tr>
+        <th>Quiz ID</th>
+        <th>Quiz Name</th>
+        <th>Score</th>
+        <th>Date</th>
+    </tr>
+    {% for score in scores %}
+    <tr>
+        <td>{{ score.quiz_id }}</td>
+        <td>{{ score.quiz_name }}</td>
+        <td>{{ score.score }}</td>
+        <td>{{ score.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
