@@ -1,0 +1,248 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #daffed;
+    margin: 0;
+    padding: 0;
+}
+
+
+nav {
+    background-color: #00aa3e;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center; 
+    gap: 15px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 15px;
+    font-size: 24px;
+    transition: background 0.3s, color 0.3s;
+}
+
+nav a:hover {
+    color: #000000;
+    border-radius: 5px;
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    nav a {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+    }
+}
+
+.container {
+    /* width: 80%;
+    background: rgb(212, 255, 210);
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); */
+    margin: auto;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+button, .buttons {
+    display: inline-block;
+    padding: 12px 24px;
+    /* font-size: 16px; */
+    font-weight: bold;
+    color: white;
+    background-color: #00aa3e; 
+    border: none;
+    border-radius: 8px; 
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.index-button{
+    background-color: #00aa3e;
+}
+
+button:hover, .buttons:hover {
+    background-color: #007f2f; 
+}
+
+.index-button:hover{
+    background-color: #007f2f;
+}
+
+button:active, .buttons:active {
+    transform: scale(0.95);
+}
+
+form:not(#subjectsearch):not(#chaptersearch):not(#quizsearch):not(#usersearch) {
+    width: 100%;
+    max-width: 500px; 
+    margin: 20px auto; 
+    padding: 20px;
+    background-color: rgb(212, 255, 210); 
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 170, 62, 0.3);
+}
+
+form input, 
+form textarea{
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #00aa3e; 
+    border-radius: 5px;
+    font-size: 16px;
+    background: white;
+}
+
+form input:focus, 
+form textarea:focus{
+    border-color: #007b3e; 
+    outline: none;
+    box-shadow: 0px 0px 5px rgba(0, 170, 62, 0.5);
+}
+
+table {
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    border-collapse: collapse;
+    background-color: rgb(212, 255, 210); 
+    box-shadow: 0px 4px 10px rgba(0, 170, 62, 0.3); 
+    border-radius: 10px;
+    overflow: hidden; 
+}
+
+th {
+    background-color: #00aa3e; 
+    color: white;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #00aa3e; 
+}
+
+tr:nth-child(even) {
+    background-color: #e0ffe0;
+}
+
+tr:hover {
+    background-color: #c0f0c0; 
+}
+
+.admin-dashboard, .user-db {
+    width: 90%;
+    margin: auto;
+    padding: 20px;
+    background: rgb(212, 255, 210);
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2{
+    text-align: center; 
+    font-family: cursive;
+    color: #007602;
+    font-size: 36px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 5px rgba(0, 170, 62, 0.3);
+    border-top: 4px solid #00aa3e; 
+    border-bottom: 4px solid #00aa3e; 
+    padding-bottom: 10px;
+}
+
+.scontainer {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 2px solid #00993b;
+    border-radius: 8px;
+    background: #4dff8e76;
+}
+
+.scontainer h3{
+    text-decoration-line: underline;
+}
+
+.ccontainer {
+    margin-left: 20px;
+    padding: 10px;
+    border: 3px solid #007602;
+    border-radius: 8px;
+}
+
+.qcontainer {
+    margin-left: 40px;
+    padding: 8px;
+    border: 2px solid #000608;
+    border-radius: 8px;
+}
+
+@media screen and (max-width: 768px) {
+    .admin-dashboard {
+        width: 100%;
+    }
+
+    .scontainer, .ccontainer, .qcontainer {
+        margin-left: 10px;
+    }
+}
+
+.delete-btn:hover {
+    background: #c92c3c;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 80%;
+    max-width: 400px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 10px;
+    background-color: rgb(212, 255, 210);
+    border-radius: 25px;
+    box-shadow: 0px 4px 8px rgba(0, 170, 62, 0.3);
+}
+
+.search-box input {
+    flex: 1;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 2px solid #00aa3e;
+    border-radius: 20px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.search-box input:focus {
+    border-color: #007b3e;
+    box-shadow: 0px 0px 5px rgba(0, 170, 62, 0.5);
+}
+
+.user-db a{
+    text-decoration: none;
+}
+
+.user-db h4{
+    font-size: 20px;
+    text-decoration: underline black 2px;
+}
+
+li{
+    padding: 10px;
+}
