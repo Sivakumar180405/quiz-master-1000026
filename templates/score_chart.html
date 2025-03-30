@@ -5,8 +5,9 @@
     {% if graph %}
         <h3>Scores of All Users</h3>
         <img src="data:image/png;base64,{{ graph }}" alt="Quiz Score Chart">
-    {% endif %}
-    <div class="buttons">
+    {% endif %}<br>
+    
+    <div>
         <a href="{{ url_for('main.all_results') }}">
             <button>View All Scores</button>
         </a>

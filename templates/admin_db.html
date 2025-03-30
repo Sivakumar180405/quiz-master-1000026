@@ -3,7 +3,7 @@
 <div class="admin-dashboard">
     <h2>Admin Dashboard</h2>
     
-    <h3>Subjects & Quizzes</h3>
+    <h3 style="font-size: 24px;">Subjects & Quizzes</h3>
     
     <div class="search-box">
         <input type="text" name="query" placeholder="Search for a subject..." form="subjectsearch">
@@ -11,16 +11,17 @@
     </div>
     <form action="{{ url_for('main.subject_search') }}" method="GET" id="subjectsearch"></form>
 
-    <div class="buttons">
+    <div>
         <a href="{{ url_for('main.subject_create') }}">
             <button>Create Subject</button>
         </a>
     </div>
-    {% for subject in subjects %}
-        <div class="scontainer">
+
+    <div class="scontainer">
+        {% for subject in subjects %}
             <h3>Subject: {{ subject.name }}</h3>
             <p>{{ subject.description }}</p>
-            <div class="buttons">
+            <div>
                 <a href="{{ url_for('main.chapter_create', subject_id=subject.id) }}" method="GET"">
                     <button type="submit">Add Chapter</button>
                 </a>
@@ -28,15 +29,18 @@
                     <button type="submit" class="delete-btn" onclick="return window.alert('Are you sure you want to delete this sybject and its chapter?')">Delete Subject</button>
                 </a>
             </div>
+
             <div class="search-box">
                 <input type="text" name="query" placeholder="Search for a chapter..." form="chaptersearch">
                 <button type="submit" form="chaptersearch">Search Chapters</button>
             </div>
-            <form action="{{ url_for('main.chapter_search') }}" method="GET" id="chaptersearch"></form>
-            {% for chapter in subject.chapters %}
             <div class="ccontainer">
+            <form action="{{ url_for('main.chapter_search') }}" method="GET" id="chaptersearch"></form>
+
+            {% for chapter in subject.chapters %}
                 <h4>Chapter: {{ chapter.name }}</h4>
-                <div class="buttons">
+
+                <div>
                     <a href="{{ url_for('main.quiz_create', chapter_id=chapter.id) }}" method="GET">
                         <button type="submit">Add Quiz</button>
                     </a>
@@ -45,15 +49,19 @@
                         <button type="submit" class="delete-btn" onclick="return window.alert('Are you sure you want to delete this chapter and its quizzes?')">Delete Chapter</button>
                     </a>
                 </div>
+
                 <div class="search-box">
                     <input type="text" name="query" placeholder="Search for a quiz..." form="quizsearch">
                     <button type="submit" form="quizsearch">Search Quizzes</button>
                 </div>
-                <form action="{{ url_for('main.quiz_search') }}" method="GET" id="quizsearch"></form>
-                {% for quiz in chapter.quizzes %}
                 <div class="qcontainer">
+                <form action="{{ url_for('main.quiz_search') }}" method="GET" id="quizsearch"></form>
+
+
+                {% for quiz in chapter.quizzes %}
                     <h5>{{ quiz.name }} Quiz ({{ quiz.duration }} minutes)</h5>
-                    <div class="buttons">
+
+                    <div>
                         <a href="{{ url_for('main.add_question', quiz_id=quiz.id) }}">
                             <button>Add Questions</button>
                         </a>
@@ -61,22 +69,28 @@
                             <button type="submit" class="delete-btn" onclick="return window.alert('Are you sure you want to delete this quiz?')">Delete Quiz</button>
                         </a>
                     </div>
+                    {% else %}
+                    <h5>No quizzes available</h5>
+                    {% endfor %}
                 </div>
+
+                {% else %}
+                <h4>No chapters available</h4>
                 {% endfor %}
-            {% else %}
-            <h4> chapters available yet.</h4>
-        </div>
-        {% endfor %}
+            </div>
+        
         {% else %}
-        <h3>No subjects available yet.</h3>
+        <h3>No subjects available</h3>
+        {% endfor %}
     </div>
-    {% endfor %}
-    <div class="buttons">
+    
+    <div>
         <a href="{{ url_for('main.all_results') }}">
             <button>View All Results</button>
         </a>
     </div>
-    <div class="buttons">
+
+    <div >
         <a href="{{ url_for('main.logout') }}">
             <button class="delete-btn">Logout</button>
         </a>

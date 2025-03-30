@@ -19,12 +19,12 @@
 </table>
 
 {% if chart %}
-    <img src="data:image/png;base64,{{ chart }}" alt="Quiz Score Chart">
+    <img src="data:image/png;base64,{{ chart }}" alt="Quiz Score Chart" style="display: block;margin: 20px auto;">
 {% else %}
     <p>No scores available.</p>
 {% endif %}
-
-<div class="buttons">
+<br>
+<div style="text-align: center;">
     <a href="{{ url_for('main.db') }}">
         <button>Dashboard</button>
     </a>

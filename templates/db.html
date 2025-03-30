@@ -1,48 +1,51 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>User Dashboard</h2>
+<div class="user-db">
+    <h2>User Dashboard</h2>
 
-<h3>Available Subjects & Quizzes</h3>
-<ul>
-    {% for subject in subjects %}
-    <li>
-        <strong>Subject: {{ subject.name }}</strong>
+    <h3 style="font-size: 24px;">Available Subjects & Quizzes</h3>
+    <ul>
+        {% for subject in subjects %}
+        <li>
+            <h4><strong>Subject: {{ subject.name }}</strong></h4>
 
-        <ul>
-            {% if subject.chapters %}
-                {% for chapter in subject.chapters %}
-                <li>
-                    Chapter: {{ chapter.name }}
-                    <ul>
-                        {% if chapter.quizzes %}
+            <ul>
+                {% if subject.chapters %}
+                    {% for chapter in subject.chapters %}
+                    <li>
+                        <h4>Chapter: {{ chapter.name }}</h4>
                         <div class="search-box">
                             <input type="text" name="query" placeholder="Search for a quiz..." form="usersearch">
                             <button type="submit" form="usersearch">Search</button>
                         </div>
                         <form action="{{ url_for('main.user_quiz_search') }}" method="GET" id="usersearch"></form>    
-                        {% for quiz in chapter.quizzes %}
-                            <li>
-                                {{ quiz.name }} Quiz ({{ quiz.duration }} minutes)
-                                <a href="{{ url_for('main.start_quiz', quiz_id=quiz.id) }}">Start Quiz</a>
-                            </li>
-                            {% endfor %}
-                        {% else %}
-                            <li>No quizzes available yet.</li>
-                        {% endif %}
-                    </ul>
-                </li>
-                {% endfor %}
-            {% else %}
-                <li>No chapters available yet.</li>
-            {% endif %}
-        </ul>
-    </li>
-    {% else %}
-    <li>No subjects available yet.</li>
-    {% endfor %}
-</ul>
-<a href="{{ url_for('main.results') }}">
-    <button>View Scores</button>
-</a>
-
+                        <ul>
+                            {% if chapter.quizzes %}
+                            <table style="margin: 0px;">
+                                {% for quiz in chapter.quizzes %}
+                                <tr>
+                                    <td>{{ quiz.name }} Quiz ({{ quiz.duration }} minutes)</td>
+                                    <td><a href="{{ url_for('main.start_quiz', quiz_id=quiz.id) }}" class="buttons">Start Quiz</a></td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                                {% else %}
+                                <li>No quizzes available yet.</li>
+                                {% endif %}
+                        </ul>
+                    </li>
+                    {% endfor %}
+                {% else %}
+                    <li>No chapters available yet.</li>
+                {% endif %}
+            </ul>
+        </li>
+        {% else %}
+        <li>No subjects available yet.</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('main.results') }}">
+        <button>View Scores</button>
+    </a>
+</div>
 {% endblock %}
