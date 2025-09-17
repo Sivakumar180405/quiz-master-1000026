@@ -18,16 +18,18 @@
     <label>Option 4:</label>
     <input type="text" name="option4" required>
 
-    <label>Correct Option (1-4):</label>
-    <select name="correct_option" required>
-        <option value="1">Option 1</option>
-        <option value="2">Option 2</option>
-        <option value="3">Option 3</option>
-        <option value="4">Option 4</option>
-    </select>
-
-    <button type="submit" name="action" value="add_another">Add Another Question</button>
-    <button type="submit" name="action" value="quit">Save & Exit</button>
+    <div class="drop-down">
+        <label>Correct Option (1-4):</label>
+        <select name="correct_option" required>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+            <option value="4">Option 4</option>
+        </select>
+    
+        <button type="submit" name="action" value="add_another">Add Another Question</button>
+        <button type="submit" name="action" value="quit">Save & Exit</button>
+    </div>
 </form>
 
 <a href="{{ url_for('main.admin_db') }}">Back</a>
