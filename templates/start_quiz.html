@@ -4,15 +4,23 @@
 <form method="POST">
     {% for question in questions %}
     <div class="radio-group">
-        <p>{{ question.id }}. {{ question.question_text }}</p><br>
-        <input type="radio" name="question_{{ question.id }}" value="1" id="q{{ question.id }}_1">
-        <label for="q{{ question.id }}_1"> {{ question.option1 }} </label>
-        <input type="radio" name="question_{{ question.id }}" value="2" id="q{{ question.id }}_2">
-        <label for="q{{ question.id }}_2"> {{ question.option2 }} </label>
-        <input type="radio" name="question_{{ question.id }}" value="3" id="q{{ question.id }}_3">
-        <label for="q{{ question.id }}_3"> {{ question.option3 }} </label>
-        <input type="radio" name="question_{{ question.id }}" value="4" id="q{{ question.id }}_4">
-        <label for="q{{ question.id }}_4"> {{ question.option4 }} </label>
+        <p>{{ question.id }}. {{ question.question_text }}</p>
+        <div class="options-group">
+            <input type="radio" name="question_{{ question.id }}" value="1" id="q{{ question.id }}_1">
+            <label for="q{{ question.id }}_1"> {{ question.option1 }} </label>
+        </div>
+        <div class="options-group">
+            <input type="radio" name="question_{{ question.id }}" value="2" id="q{{ question.id }}_2">
+            <label for="q{{ question.id }}_2"> {{ question.option2 }} </label>
+        </div>
+        <div class="options-group">
+            <input type="radio" name="question_{{ question.id }}" value="3" id="q{{ question.id }}_3">
+            <label for="q{{ question.id }}_3"> {{ question.option3 }} </label>
+        </div>
+        <div class="options-group">
+            <input type="radio" name="question_{{ question.id }}" value="4" id="q{{ question.id }}_4">
+            <label for="q{{ question.id }}_4"> {{ question.option4 }} </label>
+        </div>
     </div>
     <hr>
     {% endfor %}
