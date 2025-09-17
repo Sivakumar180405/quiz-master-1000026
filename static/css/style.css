@@ -275,13 +275,21 @@ li{
     /* width: 500px; */
 }
 
+.options-group {
+    display: flex;
+    flex-direction: row;
+    gap: 10px; 
+    margin-bottom: 20px; 
+    align-items: center;
+}
 
 .radio-group label {
-    display: inline-flex;
-    flex-direction: row;
-    align-items: center;
-    width: 85%;
-    margin-left: 6px;
+    /* display: inline-flex; */
+    /* flex-direction: row; */
+    /* align-items: center; */
+    /* width: 85%; */
+    /* margin-left: 6px; */
+    flex: 1;
     cursor: pointer;
     padding: 8px 12px;
     border: 2px solid #00aa3e;
@@ -292,9 +300,11 @@ li{
 
 
 .radio-group input[type="radio"] {
-    margin-left: 6px;
-    width: 15px;
-    margin-right: 10px;
+    /* margin-left: 6px; */
+    margin: 0;
+    width: 5%;
+    accent-color: green;
+    /* margin-right: 10px; */
 }
 
 .radio-group input[type="radio"]:checked + label {
