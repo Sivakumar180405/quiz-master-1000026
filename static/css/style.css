@@ -35,7 +35,8 @@ nav a:hover {
     }
     
     nav a {
-        display: block;
+        /* display: flex; */
+        width: 10px;
         width: 100%;
         text-align: center;
         padding: 12px;
@@ -85,7 +86,7 @@ button:active, .buttons:active {
 
 form:not(#subjectsearch):not(#chaptersearch):not(#quizsearch):not(#usersearch) {
     width: 100%;
-    max-width: 500px; 
+    max-width: 800px; 
     margin: 20px auto; 
     padding: 20px;
     background-color: rgb(212, 255, 210); 
@@ -95,13 +96,31 @@ form:not(#subjectsearch):not(#chaptersearch):not(#quizsearch):not(#usersearch) {
 
 form input, 
 form textarea{
-    width: 100%;
+    width: 95%;
     padding: 10px;
-    margin: 8px 0;
+    margin: 2%;
     border: 1px solid #00aa3e; 
     border-radius: 5px;
     font-size: 16px;
     background: white;
+}
+
+form select {
+    /* width: 35%; */
+    flex: 1;
+    padding: 10px;
+    margin: 2%;
+    border: 1px solid #00aa3e; 
+    border-radius: 5px;
+    font-size: 16px;
+    background: white;
+}
+
+.drop-down{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
 }
 
 form input:focus, 
@@ -248,13 +267,40 @@ li{
 }
 
 
-.radio-group label {
-    display: inline-flex;
-    align-items: center; 
-    gap: 8px; 
-    cursor: pointer;
+.radio-group {
+    /* display: flex; */
+    /* flex-direction: column; */
+    gap: 10px; 
+    margin-bottom: 20px; 
+    /* width: 500px; */
 }
 
+
+.radio-group label {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    width: 85%;
+    margin-left: 6px;
+    cursor: pointer;
+    padding: 8px 12px;
+    border: 2px solid #00aa3e;
+    border-radius: 5px;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+
+
 .radio-group input[type="radio"] {
-    margin: 0;
+    margin-left: 6px;
+    width: 15px;
+    margin-right: 10px;
+}
+
+.radio-group input[type="radio"]:checked + label {
+    background-color: #008731;
+    border-color: #007b3e;
+    color: white;
+    accent-color: green;
+    outline: none;
 }
